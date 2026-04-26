@@ -8,47 +8,65 @@
 <link rel="canonical" href="https://labs.techpavitra.com/contact/" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../assets/styles.css" />
+<link rel="stylesheet" href="../assets/hero.css" />
 </head>
 <body>
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="../index.html" class="brand">
-      <img src="https://i.ibb.co/4R47zC7j/whitetechpavitra.png" alt="TechPavitra" />
-      <span class="brand-divider"></span>
-      <span class="brand-labs">Labs</span>
-    </a>
-    <div class="nav-links">
-      <div class="nav-has-drop">
-        <a href="../services/index.html">Services</a>
-        <div class="nav-drop">
-          <a href="../services/web-commerce/index.html"><span class="drop-k">01</span>Web &amp; Commerce</a>
-          <a href="../services/product-engineering/index.html"><span class="drop-k">02</span>Product Engineering</a>
-          <a href="../services/ai-agents/index.html"><span class="drop-k">03 · HERO</span>AI Agents &amp; Automation</a>
-          <a href="../services/retainers/index.html"><span class="drop-k">04</span>Ongoing Partnership</a>
-        </div>
-      </div>
-      <a href="../work/index.html">Work</a>
-      <a href="../pricing/index.html">Pricing</a>
-      <a href="../about/index.html">About</a>
-      <a href="../contact/index.html" class="nav-cta">Book intake</a>
-    </div>
-  </div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav class="hero-nav">
+  <a href="../index.html" class="brand">
+    <img src="https://i.ibb.co/4R47zC7j/whitetechpavitra.png" alt="TechPavitra" />
+    <span class="brand-divider"></span>
+    <span class="brand-labs">Labs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../services/index.html">Services</a></li>
+    <li><a href="../work/index.html">Work</a></li>
+    <li><a href="../pricing/index.html">Pricing</a></li>
+    <li><a href="../about/index.html">About</a></li>
+  </ul>
+  <a href="../contact/index.html" class="nav-cta"><span>Enquire →</span></a>
 </nav>
 
-<header class="page-hero">
-  <canvas class="page-hero-canvas"></canvas>
-  <div class="wrap page-hero-inner">
-    <div class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>Contact</span></div>
-    <span class="eyebrow"><span class="eyebrow-dot"></span>Booking from May 2026 · response within one business day</span>
-    <h1 style="margin-top:22px">Tell us the problem. <em>We'll tell you the shape.</em></h1>
-    <p class="lede">Fill the form and it'll land in Rajni's inbox. Or email <a href="mailto:labs@techpavitra.com" style="color:var(--primary-bright)">labs@techpavitra.com</a> directly. Either way you'll hear back within a business day, usually sooner.</p>
-  </div>
-</header>
+<section class="hero-section">
+  <canvas id="bg"></canvas>
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
 
-<section>
+  <!-- Corner brackets -->
+  <div class="hero-corner hero-c-tl"><svg viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#e8c96d" stroke-width="1.5" opacity="0.5"/></svg></div>
+  <div class="hero-corner hero-c-tr"><svg viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#e8c96d" stroke-width="1.5" opacity="0.5"/></svg></div>
+  <div class="hero-corner hero-c-bl"><svg viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#e8c96d" stroke-width="1.5" opacity="0.5"/></svg></div>
+  <div class="hero-corner hero-c-br"><svg viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#e8c96d" stroke-width="1.5" opacity="0.5"/></svg></div>
+
+  <div class="hero-inner-content">
+    <div class="hero-eyebrow-container">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Booking from May 2026 · Global Response</span>
+      <div class="hero-eyebrow-dot"></div>
+    </div>
+
+    <h1 class="hero-main-title">
+      Tell us the <span class="accent">problem.</span> We'll tell you the shape of the solution.
+    </h1>
+
+    <p class="hero-description">
+      Fill the form and it'll land in Rajni's inbox. Or email <a href="mailto:labs@techpavitra.com" style="color:var(--gold)">labs@techpavitra.com</a> directly. Either way you'll hear back within a business day, usually sooner.
+    </p>
+
+    <div class="hero-actions-container">
+      <a href="#intake" class="hero-btn-primary">Fill intake form <span class="hero-btn-arrow">↓</span></a>
+      <a href="mailto:labs@techpavitra.com" class="hero-btn-secondary">Email directly <span class="hero-btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="intake">
   <div class="wrap">
     <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start">
       <div class="form-card">
@@ -220,5 +238,6 @@
 </footer>
 
 <script src="../assets/app.js"></script>
+<script src="../assets/hero.js"></script>
 </body>
 </html>
