@@ -423,5 +423,41 @@
 
 <script src="./assets/app.js"></script>
 <script src="./assets/hero.js"></script>
+<script>
+// Modal open/close functionality
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+
+    // Open modal handler
+    document.querySelectorAll('[data-open-modal="contact"]').forEach(button => {
+      button.onclick = function(e) {
+        e.preventDefault();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+    });
+
+    // Close modal handler
+    const closeBtn = modal.querySelector('[data-close-modal]');
+    if (closeBtn) {
+      closeBtn.onclick = function(e) {
+        e.preventDefault();
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+    }
+
+    // Backdrop click handler
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+  }, 100);
+});
+</script>
 </body>
 </html>
