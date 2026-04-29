@@ -297,7 +297,7 @@
 
       <!-- Turnstile verification widget -->
       <div class="form-row" style="margin-bottom:0">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADDFb6im-HaH8WHT123atuzZZHs" data-theme="dark"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFEU3xvJ3CdoegSz" data-theme="dark"></div>
       </div>
 
       <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px">
@@ -315,6 +315,40 @@
 <script src="../assets/app.js"></script>
 <script src="../assets/hero.js"></script>
 <script>
+// Modal open/close functionality
+document.querySelectorAll('[data-open-modal]').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const modalId = button.getAttribute('data-open-modal');
+    const modal = document.getElementById(modalId + '-modal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
+document.querySelectorAll('[data-close-modal]').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const modal = button.closest('[id$="-modal"]');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+// Close modal when clicking outside (backdrop)
+document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
 document.getElementById('contact-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -343,6 +377,9 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
       turnstileToken: turnstileToken,
     };
 
+    console.log('Form payload:', payload);
+    console.log('Turnstile token:', turnstileToken);
+
     // POST to /api/contact
     const response = await fetch('/api/contact', {
       method: 'POST',
@@ -350,28 +387,33 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
       body: JSON.stringify(payload),
     });
 
+    console.log('Response status:', response.status);
     const result = await response.json();
+    console.log('Response data:', result);
 
     if (result.ok) {
       // Success
-      submitBtn.textContent = '✓ Sent!';
-      submitBtn.style.backgroundColor = '#4CAF50';
+      submitBtn.textContent = '✓ Intake received!';
+      submitBtn.style.backgroundColor = '#10b981';
+      statusEl.textContent = 'Your intake form has been sent. We'll reply within one business day.';
+      statusEl.style.color = '#10b981';
+      statusEl.style.display = 'block';
       form.reset();
       window.turnstile?.reset?.();
 
-      // Close modal after 2 seconds
+      // Close modal after 3 seconds
       setTimeout(() => {
         document.querySelector('[data-close-modal="true"]')?.click?.();
-      }, 2000);
+      }, 3000);
     } else {
       // Error from backend
       throw new Error(result.error || 'Failed to send form');
     }
   } catch (error) {
     console.error('Form submission error:', error);
-    statusEl.textContent = error.message || 'Failed to send. Please try again.';
+    statusEl.textContent = '❌ ' + (error.message || 'Failed to send. Please try again or email us directly.');
     statusEl.style.color = '#dc2626';
-    statusEl.style.display = 'inline';
+    statusEl.style.display = 'block';
     submitBtn.textContent = originalBtnText;
     submitBtn.disabled = false;
     window.turnstile?.reset?.();
