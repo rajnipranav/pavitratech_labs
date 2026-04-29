@@ -29,10 +29,10 @@
   background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
   border: 1px solid rgba(0, 242, 255, 0.15);
   border-radius: 12px;
-  padding: 48px;
+  padding: 32px;
   max-width: 620px;
   width: 100%;
-  max-height: 92vh;
+  max-height: 88vh;
   overflow-y: auto;
   box-shadow: 0 25px 100px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 242, 255, 0.08);
   animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -54,18 +54,18 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
-  padding-bottom: 20px;
+  margin-bottom: 4px;
+  padding-bottom: 16px;
   border-bottom: 1px solid rgba(0, 242, 255, 0.1);
 }
 
 .modal-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #fff;
   margin: 0;
   letter-spacing: -0.5px;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .modal-close {
@@ -92,12 +92,12 @@
 }
 
 .modal-description {
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 32px;
-  margin-top: 20px;
-  line-height: 1.7;
-  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+  margin-top: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 /* Form inside modal */
@@ -108,191 +108,22 @@
 }
 
 .modal-content .form-row {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .modal-content .form-row label {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #00f2ff;
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
+  margin-bottom: 7px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
 }
 
 .modal-content .form-row input,
-.modal-content .form-row select,
 .modal-content .form-row textarea {
   width: 100%;
-  padding: 14px 16px;
+  padding: 11px 14px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 242, 255, 0.2);
-  border-radius: 8px;
-  color: #fff;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  transition: all 0.2s ease;
-}
-
-.modal-content .form-row input:focus,
-.modal-content .form-row select:focus,
-.modal-content .form-row textarea:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 242, 255, 0.4);
-  box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.1);
-}
-
-.modal-content .form-row input::placeholder,
-.modal-content .form-row textarea::placeholder {
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.modal-content .form-row textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.modal-content .form-row-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-/* Turnstile widget styling */
-.modal-content .form-row .cf-turnstile {
-  margin: 10px 0 0 0;
-  transform: scale(0.95);
-  transform-origin: left;
-}
-
-/* Form buttons and status */
-.modal-content .form-row[style*="display:flex"] {
-  margin-top: 32px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(0, 242, 255, 0.1);
-}
-
-.modal-content .btn-primary {
-  background: linear-gradient(135deg, #00f2ff 0%, #00d9e8 100%);
-  color: #0a0a0f;
-  border: none;
-  padding: 14px 32px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
-}
-
-.modal-content .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0, 242, 255, 0.25);
-}
-
-.modal-content .btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.modal-content .btn-ghost {
-  background: none;
-  color: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 242, 255, 0.2);
-  padding: 12px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  font-size: 15px;
-}
-
-.modal-content .btn-ghost:hover {
-  background: rgba(0, 242, 255, 0.08);
-  color: #00f2ff;
-  border-color: rgba(0, 242, 255, 0.4);
-}
-
-#form-status {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 16px;
-  border-radius: 6px;
-  background: rgba(16, 185, 129, 0.12);
-  border-left: 3px solid #10b981;
-  display: inline-block;
-}
-
-.form-note {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  margin-top: 20px;
-  line-height: 1.6;
-  letter-spacing: 0.2px;
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    padding: 36px;
-    border-radius: 12px;
-  }
-
-  .modal-title {
-    font-size: 24px;
-  }
-
-  .modal-content .form-row-split {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-}
-
-@media (max-width: 640px) {
-  .modal-content {
-    padding: 28px;
-    max-height: 95vh;
-  }
-
-  .modal-title {
-    font-size: 22px;
-  }
-
-  .modal-header {
-    margin-bottom: 16px;
-  }
-
-  .modal-description {
-    margin-bottom: 24px;
-  }
-
-  .modal-content .form-row {
-    margin-bottom: 20px;
-  }
-
-  .modal-content .form-row-split {
-    gap: 20px;
-  }
-}
-
-/* Scrollbar styling for modal */
-.modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 242, 255, 0.25);
-  border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 242, 255, 0.45);
-}
+ 
