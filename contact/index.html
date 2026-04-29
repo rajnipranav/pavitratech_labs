@@ -59,7 +59,7 @@
     </p>
 
     <div class="hero-actions-container">
-      <a href="#intake" class="hero-btn-primary">Fill intake form <span class="hero-btn-arrow">↓</span></a>
+      <button data-open-modal="contact" class="hero-btn-primary" style="border:none;background:var(--gold);color:var(--dark);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;padding:14px 32px;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))">Fill intake form <span class="hero-btn-arrow">→</span></button>
       <a href="mailto:labs@techpavitra.com" class="hero-btn-secondary">Email directly <span class="hero-btn-arrow">→</span></a>
     </div>
   </div>
@@ -68,61 +68,10 @@
 <section id="intake">
   <div class="wrap">
     <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start">
-      <div class="form-card">
-        <form class="contact-form" method="post" action="mailto:labs@techpavitra.com">
-          <div class="form-row-split">
-            <div class="form-row">
-              <label for="name">Your name</label>
-              <input id="name" name="name" type="text" required />
-            </div>
-            <div class="form-row">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label for="company">Company / project</label>
-            <input id="company" name="company" type="text" />
-          </div>
-
-          <div class="form-row-split">
-            <div class="form-row">
-              <label for="practice">Which practice fits?</label>
-              <select id="practice" name="practice">
-                <option value="">I'm not sure — help me choose</option>
-                <option>Web &amp; Commerce</option>
-                <option>Product Engineering</option>
-                <option>AI Agents &amp; Automation</option>
-                <option>Ongoing Partnership</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <label for="budget">Budget band</label>
-              <select id="budget" name="budget">
-                <option value="">Not sure yet</option>
-                <option>Under $500</option>
-                <option>$500 – $1,999</option>
-                <option>$2,000 – $4,999</option>
-                <option>$5,000 – $9,999</option>
-                <option>$10,000+</option>
-                <option>Retainer only</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label for="message">Tell us the problem</label>
-            <textarea id="message" name="message" placeholder="What's broken, what's missing, or what you want to ship. Plain English is fine — no jargon required." required></textarea>
-          </div>
-
-          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-            <button class="btn-primary" type="submit" style="border:0;cursor:pointer">Send intake</button>
-            <a class="btn-ghost" href="mailto:labs@techpavitra.com">Or email directly</a>
-          </div>
-
-          <p class="form-note">This form opens your email client with a pre-filled message. We'll reply within one business day. We don't sell, share or scrape your details — principle-led, not growth-hack-led.</p>
-        </form>
+      <div class="form-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center;background:linear-gradient(135deg,rgba(15,15,26,0.5) 0%,rgba(26,26,46,0.5) 100%);border:1px solid rgba(0,242,255,0.1);border-radius:12px">
+        <h3 style="font-size:24px;margin-bottom:16px;color:#fff;font-weight:700;letter-spacing:-0.5px">Quick intake form</h3>
+        <p style="color:rgba(255,255,255,0.65);margin-bottom:32px;line-height:1.5;max-width:320px">Tell us the problem. The inputs (data, systems, approvals). The smallest shape that could solve it.</p>
+        <button data-open-modal="contact" class="btn-primary" style="border:none;background:linear-gradient(135deg,#00f2ff 0%,#00d9e8 100%);color:#0a0a0f;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.2px;cursor:pointer;padding:14px 32px;border-radius:8px;transition:all 0.3s ease">Open Intake Form</button>
       </div>
 
       <div>
