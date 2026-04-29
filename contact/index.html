@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../assets/styles.css" />
 <link rel="stylesheet" href="../assets/hero.css" />
 <link rel="stylesheet" href="../assets/modal.css" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -244,7 +245,7 @@
       Tell us the problem. The inputs (data, systems, approvals). The smallest shape that could solve it. We'll be in touch within one business day.
     </p>
 
-    <form class="contact-form" method="post">
+    <form class="contact-form" id="contact-form">
       <div class="form-row-split">
         <div class="form-row">
           <label for="modal-name">Your name</label>
@@ -266,10 +267,10 @@
           <label for="modal-practice">Which practice fits?</label>
           <select id="modal-practice" name="practice">
             <option value="">I'm not sure — help me choose</option>
-            <option>Web &amp; Commerce</option>
-            <option>Product Engineering</option>
-            <option>AI Agents &amp; Automation</option>
-            <option>Ongoing Partnership</option>
+            <option value="web">Web &amp; Commerce</option>
+            <option value="product">Product Engineering</option>
+            <option value="ai">AI Agents &amp; Automation</option>
+            <option value="partnership">Ongoing Partnership</option>
           </select>
         </div>
         <div class="form-row">
@@ -291,10 +292,21 @@
         <textarea id="modal-message" name="message" placeholder="What's broken, what's missing, or what you want to ship." required></textarea>
       </div>
 
-      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <button class="btn-primary" type="submit" style="border:0;cursor:pointer">Send intake</button>
+      <!-- Honeypot field (hidden from real users) -->
+      <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off" />
+
+      <!-- Turnstile verification widget -->
+      <div class="form-row" style="margin-bottom:0">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADDFb6im-HaH8WHT123atuzZZHs" data-theme="dark"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px">
+        <button class="btn-primary" type="submit" style="border:0;cursor:pointer" id="submit-btn">Send intake</button>
+        <span id="form-status" style="font-size:14px;color:#5b6e75;display:none;"></span>
         <a class="btn-ghost" href="mailto:labs@techpavitra.com">Or email directly</a>
       </div>
+
+      <p class="form-note">This form sends your message directly to our inbox. We'll reply within one business day. We don't sell, share or scrape your details — principle-led, not growth-hack-led.</p>
     </form>
   </div>
 </div>
@@ -302,5 +314,69 @@
 
 <script src="../assets/app.js"></script>
 <script src="../assets/hero.js"></script>
+<script>
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const submitBtn = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('form-status');
+  const originalBtnText = submitBtn.textContent;
+
+  // Get Turnstile token
+  const turnstileToken = window.turnstile?.getResponse();
+
+  try {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    statusEl.style.display = 'none';
+
+    // Collect form data
+    const payload = {
+      name: document.getElementById('modal-name').value,
+      email: document.getElementById('modal-email').value,
+      company: document.getElementById('modal-company').value,
+      practice: document.getElementById('modal-practice').value || 'general',
+      budget: document.getElementById('modal-budget').value,
+      message: document.getElementById('modal-message').value,
+      website: document.querySelector('input[name="website"]').value,
+      turnstileToken: turnstileToken,
+    };
+
+    // POST to /api/contact
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+
+    if (result.ok) {
+      // Success
+      submitBtn.textContent = '✓ Sent!';
+      submitBtn.style.backgroundColor = '#4CAF50';
+      form.reset();
+      window.turnstile?.reset?.();
+
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        document.querySelector('[data-close-modal="true"]')?.click?.();
+      }, 2000);
+    } else {
+      // Error from backend
+      throw new Error(result.error || 'Failed to send form');
+    }
+  } catch (error) {
+    console.error('Form submission error:', error);
+    statusEl.textContent = error.message || 'Failed to send. Please try again.';
+    statusEl.style.color = '#dc2626';
+    statusEl.style.display = 'inline';
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+    window.turnstile?.reset?.();
+  }
+});
+</script>
 </body>
 </html>
