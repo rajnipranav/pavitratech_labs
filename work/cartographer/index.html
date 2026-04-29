@@ -11,15 +11,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../assets/styles.css" />
 <link rel="stylesheet" href="../../assets/hero.css" />
+<link rel="stylesheet" href="../../assets/modal.css" />
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <nav class="hero-nav">
   <a href="../../index.html" class="brand">
-    <img src="https://i.ibb.co/4R47zC7j/whitetechpavitra.png" alt="TechPavitra" />
+    <img src="https://i.ibb.co/rfwZ4YPq/white-monogram-01.png" alt="TechAdyant" />
     <span class="brand-divider"></span>
     <span class="brand-labs">Labs</span>
   </a>
@@ -30,7 +29,7 @@
     <li><a href="../../pricing/index.html">Pricing</a></li>
     <li><a href="../../about/index.html">About</a></li>
   </ul>
-  <a href="../../contact/index.html" class="nav-cta"><span>Enquire →</span></a>
+  <button data-open-modal="contact" class="nav-cta" style="background:none;border:none;cursor:pointer;font-size:inherit;font-family:inherit;padding:0"><span>Enquire →</span></button>
 </nav>
 
 <section class="hero-section">
@@ -60,7 +59,7 @@
     </p>
 
     <div class="hero-actions-container">
-      <a href="../../contact/index.html" class="hero-btn-primary">Book an intake call <span class="hero-btn-arrow">→</span></a>
+      <button data-open-modal="contact" class="hero-btn-primary" style="border:none;background:var(--gold);color:var(--dark);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;padding:14px 32px;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))">Book an intake call <span class="hero-btn-arrow">→</span></button>
       <a href="../../work/index.html" class="hero-btn-secondary">Back to all work <span class="hero-btn-arrow">→</span></a>
     </div>
   </div>
@@ -104,7 +103,7 @@
       <h2>Is your data breaking your UI?</h2>
       <p>We build extremely performant interactive dashboards and internal tools that won't lock up your browser.</p>
       <div class="cta-actions">
-        <a href="../../contact/index.html" class="btn-primary">Book an intake call</a>
+        <button data-open-modal="contact" class="btn-primary" style="border:none;background:var(--gold);color:var(--dark);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;padding:13px 32px">Book an intake call</button>
         <a href="../../services/product-engineering/index.html" class="btn-ghost">View Product Engineering Practice</a>
       </div>
     </div>
@@ -115,7 +114,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <img src="https://i.ibb.co/4R47zC7j/whitetechpavitra.png" alt="TechPavitra" />
+        <img src="https://i.ibb.co/rfwZ4YPq/white-monogram-01.png" alt="TechAdyant" />
         <span class="brand-labs" style="font-size:11px">Labs</span>
         <p>Agentic software studio. Principal-led. Operating as TechPavitra Pvt. Ltd., Delhi, India.</p>
       </div>
@@ -155,6 +154,71 @@
       </div>
     </div>
   </div>
+<!-- Contact Modal -->
+<div id="contact-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Quick intake form</h2>
+      <button class="modal-close" data-close-modal="true" type="button">✕</button>
+    </div>
+    <p class="modal-description">
+      Tell us the problem. The inputs (data, systems, approvals). The smallest shape that could solve it. We'll be in touch within one business day.
+    </p>
+
+    <form class="contact-form" method="post">
+      <div class="form-row-split">
+        <div class="form-row">
+          <label for="modal-name">Your name</label>
+          <input id="modal-name" name="name" type="text" required />
+        </div>
+        <div class="form-row">
+          <label for="modal-email">Email</label>
+          <input id="modal-email" name="email" type="email" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="modal-company">Company / project</label>
+        <input id="modal-company" name="company" type="text" />
+      </div>
+
+      <div class="form-row-split">
+        <div class="form-row">
+          <label for="modal-practice">Which practice fits?</label>
+          <select id="modal-practice" name="practice">
+            <option value="">I'm not sure — help me choose</option>
+            <option>Web &amp; Commerce</option>
+            <option>Product Engineering</option>
+            <option>AI Agents &amp; Automation</option>
+            <option>Ongoing Partnership</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="modal-budget">Budget band</label>
+          <select id="modal-budget" name="budget">
+            <option value="">Not sure yet</option>
+            <option>Under $500</option>
+            <option>$500 – $1,999</option>
+            <option>$2,000 – $4,999</option>
+            <option>$5,000 – $9,999</option>
+            <option>$10,000+</option>
+            <option>Retainer only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="modal-message">Tell us the problem</label>
+        <textarea id="modal-message" name="message" placeholder="What's broken, what's missing, or what you want to ship." required></textarea>
+      </div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn-primary" type="submit" style="border:0;cursor:pointer">Send intake</button>
+        <a class="btn-ghost" href="mailto:labs@techpavitra.com">Or email directly</a>
+      </div>
+    </form>
+  </div>
+</div>
 </footer>
 
 <script src="../../assets/app.js"></script>

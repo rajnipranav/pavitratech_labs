@@ -1,37 +1,6 @@
 // Hero Specific JavaScript extracted from techpavitra-hero.html
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Custom cursor ---
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  
-  if (cur && ring) {
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    
-    function animCursor() {
-      rx += (mx - rx) * 0.14;
-      ry += (my - ry) * 0.14;
-      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(animCursor);
-    }
-    animCursor();
-    
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cur.style.width = '6px'; cur.style.height = '6px';
-        ring.style.width = '52px'; ring.style.height = '52px';
-        ring.style.borderColor = 'rgba(0, 242, 255, 0.8)'; // Cyber Cyan
-      });
-      el.addEventListener('mouseleave', () => {
-        cur.style.width = '12px'; cur.style.height = '12px';
-        ring.style.width = '36px'; ring.style.height = '36px';
-        ring.style.borderColor = 'rgba(0, 242, 255, 0.5)'; // Cyber Cyan
-      });
-    });
-  }
-
   // --- Canvas ---
   const cv = document.getElementById('bg');
   if (cv) {
