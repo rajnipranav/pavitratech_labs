@@ -186,6 +186,30 @@
         e.preventDefault();
         handleFormSubmit(form, modal);
       });
+
+      // Make "Or email directly" button dynamic: grab form values to pre-fill the email
+      var emailDirectlyBtn = form.querySelector('a.btn-ghost');
+      if (emailDirectlyBtn) {
+        emailDirectlyBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var name = (document.getElementById('modal-name') || {}).value || '';
+          var company = (document.getElementById('modal-company') || {}).value || '';
+          var practice = (document.getElementById('modal-practice') || {}).value || 'general';
+          var budget = (document.getElementById('modal-budget') || {}).value || '';
+          var message = (document.getElementById('modal-message') || {}).value || '';
+
+          var subject = encodeURIComponent('Intake — ' + practice + (company ? ' — ' + company : ''));
+          var body = encodeURIComponent(
+            (name ? 'Name: ' + name + '\n' : '') +
+            (company ? 'Company: ' + company + '\n' : '') +
+            'Practice: ' + practice + '\n' +
+            (budget ? 'Budget band: ' + budget + '\n' : '') +
+            '\nMessage:\n' + message
+          );
+
+          window.location.href = 'mailto:labs@techadyant.com?subject=' + subject + '&body=' + body;
+        });
+      }
     }
   }
 
