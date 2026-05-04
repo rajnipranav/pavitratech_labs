@@ -19,6 +19,7 @@ export function PainPointWidget() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Radar | null>(null);
   const [error, setError] = useState('');
+  const [isLive, setIsLive] = useState(false);
 
   async function analyze() {
     if (!market.trim()) return;
@@ -26,19 +27,35 @@ export function PainPointWidget() {
     setError('');
     setResult(null);
 
+    // ── Try the real n8n webhook (5s timeout) ────────────────────────────
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    let liveResult: Radar | null = null;
+
     try {
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ market: market.trim() }),
+        signal: controller.signal,
       });
 
-      if (!res.ok) throw new Error(`Webhook returned ${res.status}`);
+      if (res.ok) {
+        const data = await res.json();
+        liveResult = data as Radar;
+      }
+    } catch {
+      // Webhook unreachable or timed out — fall back to demo mode below
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
-      const data = await res.json();
-      setResult(data as Radar);
-    } catch (err) {
-      // Demo fallback when webhook isn't wired yet
+    // ── Show results (live or demo fallback) ─────────────────────────────
+    if (liveResult) {
+      setResult(liveResult);
+      setIsLive(true);
+    } else {
       setResult({
         market: market.trim(),
         intensity: Math.floor(Math.random() * 40) + 60,
@@ -51,9 +68,10 @@ export function PainPointWidget() {
         opportunity:
           'Highest-signal gap: automated onboarding with real-time progress indicators and self-serve plan management.',
       });
-    } finally {
-      setLoading(false);
+      setIsLive(false);
     }
+
+    setLoading(false);
   }
 
   return (
@@ -81,7 +99,7 @@ export function PainPointWidget() {
             borderRadius: '4px',
           }}
         >
-          LIVE · n8n powered
+          {isLive ? 'LIVE · n8n' : 'DEMO · mock'}
         </span>
       </div>
       <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', margin: '0 0 20px' }}>
