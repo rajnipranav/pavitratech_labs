@@ -8,6 +8,7 @@ import { evaluate } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
 import { POSTS, getPost } from '../posts';
 import { PainPointWidget } from '../../components/PainPointWidget';
+import { DeepSeekResearch } from '../../components/DeepSeekResearch';
 
 // ── Static params for export ────────────────────────────────────────────────
 export async function generateStaticParams() {
@@ -39,12 +40,7 @@ export default async function BlogPostPage({
   const post = getPost(slug);
   if (!post) notFound();
 
-  const mdxPath = path.join(
-    process.cwd(),
-    'contents',
-    'blog',
-    `${slug}.mdx`
-  );
+  const mdxPath = path.join(process.cwd(), 'contents', 'blog', `${slug}.mdx`);
 
   let source: string;
   try {
@@ -64,100 +60,84 @@ export default async function BlogPostPage({
   return (
     <>
       {/* ── Post header ── */}
-      <header
-        style={{
-          paddingTop: '120px',
-          paddingBottom: '48px',
-          borderBottom: '1px solid var(--border)',
-          background: 'linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%)',
-        }}
-      >
-        <div className="wrap-narrow">
+      <header className="relative pt-[120px] pb-12 md:pb-16 border-b border-[var(--border)] bg-gradient-to-b from-[var(--bg-2)] to-[var(--bg)] overflow-hidden">
+        {/* Subtle decorative accent */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/4 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+        </div>
+
+        <div className="wrap-narrow relative z-10">
+          {/* Back link */}
           <Link
             href="/blog"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--text-muted)',
-              fontSize: '0.875rem',
-              textDecoration: 'none',
-              marginBottom: '24px',
-            }}
+            className="inline-flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors mb-6 group"
           >
-            ← All posts
+            <span className="group-hover:-translate-x-0.5 transition-transform" aria-hidden="true">
+              ←
+            </span>
+            Back to all posts
           </Link>
 
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+          {/* Tags */}
+          <div className="flex gap-2 flex-wrap mb-4">
             {post!.tags.map((t) => (
               <span
                 key={t}
-                style={{
-                  fontSize: '11px',
-                  fontFamily: 'var(--font-jetbrains, monospace)',
-                  letterSpacing: '0.1em',
-                  color: 'var(--primary-bright)',
-                  background: 'rgba(99,102,241,0.1)',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                }}
+                className="font-mono text-[10px] tracking-[0.08em] uppercase text-primary-bright bg-primary/10 px-2 py-0.5 rounded"
               >
                 {t}
               </span>
             ))}
           </div>
 
-          <h1
-            style={{
-              fontSize: 'clamp(1.8rem, 5vw, 3rem)',
-              fontWeight: 800,
-              lineHeight: 1.1,
-              margin: '0 0 20px',
-              letterSpacing: '-0.03em',
-            }}
-          >
+          {/* Title */}
+          <h1 className="text-[clamp(1.8rem,5vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] mb-5 text-[var(--text)] max-w-3xl">
             {post!.title}
           </h1>
 
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              color: 'var(--text-dim)',
-              fontSize: '0.875rem',
-              fontFamily: 'var(--font-jetbrains, monospace)',
-            }}
-          >
+          {/* Meta row */}
+          <div className="flex items-center gap-3 text-sm text-[var(--text-dim)] font-mono">
             <span>
-              {new Date(post!.date).toLocaleDateString('en-GB', {
+              {new Date(post!.date).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               })}
             </span>
-            <span>·</span>
+            <span aria-hidden="true" className="text-[var(--border-strong)]">
+              ·
+            </span>
             <span>{post!.readingTime}</span>
           </div>
         </div>
       </header>
 
       {/* ── Post body ── */}
-      <article style={{ paddingTop: '48px', paddingBottom: '80px' }}>
+      <article className="pt-12 md:pt-16 pb-20 md:pb-24">
         <div className="wrap-narrow">
-          <div className="prose prose-invert">
-            <MDXContent components={{ PainPointWidget }} />
+          <div className="prose prose-lg dark:prose-invert max-w-none">
+            <MDXContent
+              components={{
+                PainPointWidget,
+                DeepSeekResearch,
+              }}
+            />
           </div>
         </div>
       </article>
 
       {/* ── Post footer ── */}
-      <section style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}>
-        <div className="wrap-narrow" style={{ padding: '48px 24px', textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
+      <section className="border-t border-[var(--border)] bg-[var(--bg-2)]">
+        <div className="wrap-narrow py-12 md:py-16 text-center">
+          <p className="text-[var(--text-muted)] mb-5">
             Want to build something with AI? Let&apos;s talk.
           </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-primary" data-open-modal="contact">
+          <div className="flex gap-3 justify-center flex-wrap">
+            <button
+              className="btn-primary"
+              data-open-modal="contact"
+              type="button"
+            >
               Book an intake call
             </button>
             <Link href="/blog" className="btn-ghost">
